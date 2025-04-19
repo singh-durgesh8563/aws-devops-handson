@@ -1,12 +1,22 @@
-# Node.js DevOps Practice Project 🚀
+```markdown
+---
 
-This is a hands-on DevOps + MLOps practice project for interns, using a simple Node.js “Hello World” app as the base.
+# Crecita React Frontend — DevOps + Cloud Practice Project 🚀
 
-The goal is to learn automation-first cloud deployment using tools like Terraform, GitHub Actions, Ansible, Docker, AWS ECS, Kubernetes (Minikube), Helm, and Prometheus-Grafana.
+This is a hands-on DevOps and Cloud Deployment Practice Project, using a simple React.js website ("Welcome to Crecita") instead of a Node.js backend.
+
+You will learn to:
+- Build and run a React frontend app locally
+- Deploy the React app on AWS EC2 manually
+- Automate deployments using Terraform, GitHub Actions, Ansible
+- Containerize and deploy via Docker, ECR, ECS
+- Deploy on Kubernetes using Helm/ArgoCD
+- Monitor deployments with Prometheus & Grafana
 
 ---
 
 ## 📦 Tools You Will Use
+- React.js (Frontend App)
 - Terraform
 - GitHub Actions
 - Ansible
@@ -18,95 +28,145 @@ The goal is to learn automation-first cloud deployment using tools like Terrafor
 
 ---
 
-## 🛠️ Tasks Breakdown
+## 📂 Frontend App — Crecita Website
+
+A very simple React app displaying:
+
+```plaintext
+Welcome to Crecita
+```
+
+### Project Structure
+
+```bash
+crecita-website/
+├── README.md
+├── package.json
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.js
+│   └── index.js
+└── node_modules/
+```
+
+---
+
+### 🏃 How to Run Locally
+
+1. Clone the repo:
+
+```bash
+git clone <your-repo-url>
+cd aws-devops-handson
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the app:
+
+```bash
+npm start
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🛠️ DevOps Tasks Breakdown
+
+---
 
 ### ✅ Task 1: Initial Setup + Local Run
-- Fork this repository to your GitHub account.
-- Clone it locally using `git clone`.
-- Run the app on your local machine:
-  ```bash
-  npm install
-  npm start
-  ```
-- Confirm it works on `http://localhost:3000`.
+- Fork this repository and clone it locally.
+- Run `npm install` and `npm start`.
+- Confirm that `Welcome to Crecita` is visible on `localhost:3000`.
 
 ---
 
 ### ✅ Task 2: Provision EC2 Instance Using Terraform
 - Write Terraform code to create:
-  - EC2 instance (Amazon Linux / Ubuntu)
-  - Security group (allow SSH - port 22 and HTTP - port 80)
-- Use GitHub Actions to trigger the Terraform scripts (avoid manual `terraform apply`).
-- Output public IP via `outputs.tf`.
+    - One EC2 instance (Amazon Linux / Ubuntu)
+    - Security Group allowing SSH (port 22) and HTTP (port 3000)
+- Use GitHub Actions to trigger Terraform automatically.
 
 ---
 
-### ✅ Task 3: Deploy Node.js App on EC2 (Manual)
-- SSH into your EC2 instance.
-- Clone your GitHub repo.
-- Install Node.js and npm on EC2.
-- Run the app using `npm start`.
-- Open the app using EC2's public IP in the browser.
+### ✅ Task 3: Deploy React App Manually on EC2
+- SSH into the EC2 instance.
+- Install Node.js and npm.
+- Clone your GitHub repository inside EC2.
+- Run:
+
+```bash
+npm install
+npm start
+```
+
+- Open `<EC2 Public IP>:3000` in your browser to access the app.
 
 ---
 
-### ✅ Task 4: Automate App Deployment Using GitHub Actions + Ansible
-- Create a GitHub Actions workflow that:
-  - Triggers on push to `main` branch.
-  - Applies Terraform code to provision EC2.
-  - Runs Ansible playbook to:
-    - SSH into EC2
-    - Install Node.js and npm
-    - Clone your repo
-    - Start the app
-- After code push, EC2 should auto-provision and app should run without any manual steps.
+### ✅ Task 4: Automate Deployment Using GitHub Actions + Ansible
+- GitHub Actions will:
+    - Trigger Terraform to create EC2.
+    - Run an Ansible Playbook to:
+        - Install Node.js and npm
+        - Clone the React repo
+        - Install app dependencies
+        - Start the app
 
 ---
 
-### ✅ Task 5: Docker + ECR + ECS Deployment (All via Terraform)
-- Write a `Dockerfile` to containerize your Node.js app.
-- Build and test the Docker image locally.
-- Push the image to your own AWS ECR repo.
-- Use Terraform to create:
-  - ECS Cluster (Fargate or EC2 launch type)
-  - Task definition and service
-  - IAM roles, SGs, etc.
-- Write a new GitHub Actions workflow to:
-  - Build and push Docker image to ECR.
-  - Trigger Terraform to deploy to ECS.
+### ✅ Task 5: Docker + ECR + ECS Deployment
+- Create a `Dockerfile` to containerize the React app.
+- Build and push the Docker image to AWS ECR.
+- Use Terraform to:
+    - Create an ECS Cluster and Service
+    - Deploy the Docker container on ECS
+- Automate everything via GitHub Actions.
 
 ---
 
-### ✅ Task 6: Kubernetes Deployment with Minikube + Helm/ArgoCD
-- Install Minikube locally.
-- Write K8s manifests (Deployment + Service) for your app.
-- Use `kubectl` to deploy the app manually first.
-- Create a dedicated namespace and apply best practices (resource limits, health checks, etc).
-- Package the app as a Helm Chart or deploy via ArgoCD.
-- App should be accessible via `minikube service` or ingress controller.
+### ✅ Task 6: Kubernetes Deployment (Minikube or EKS)
+- Write Kubernetes manifests for:
+    - Deployment
+    - Service (NodePort or LoadBalancer)
+- Deploy manually using:
+
+```bash
+kubectl apply -f <manifest-files>
+```
+
+- Later, automate deployment using Helm charts or ArgoCD.
 
 ---
 
-### ✅ Task 7: Monitoring with Prometheus and Grafana
-- Install Prometheus and Grafana in your Minikube cluster.
-- Expose them via NodePort or Ingress.
-- Add `/metrics` endpoint to your Node.js app (use `prom-client` npm package).
-- Configure Prometheus to scrape app metrics.
-- Connect Grafana to Prometheus and create dashboards for:
-  - CPU usage
-  - Memory usage
-  - HTTP request count
-  - Custom metrics (if any)
+### ✅ Task 7: Monitoring Using Prometheus and Grafana
+- Set up Prometheus and Grafana inside the Kubernetes cluster.
+- Monitor:
+    - Pod health
+    - CPU and Memory usage
+- Create Grafana dashboards based on Prometheus data.
 
 ---
 
 ## 📸 Submission Guidelines
 
-For each task, submit:
-- ✅ 1 or more screenshots as proof
-- 📝 A short explanation (2–3 lines) of what you did
-- 🔗 Your GitHub repo link with:
-  - App source code
-  - Terraform/Ansible/GitHub Actions files
-  - Dockerfile / Helm charts / K8s manifests
+For each task:
+- ✅ Submit 1–2 screenshots as proof.
+- 📝 Write a short explanation (2–3 lines) of what you did.
+- 🔗 Share your GitHub repository link containing:
+    - App source code
+    - Terraform / Ansible / GitHub Actions files
+    - Dockerfile / Helm charts / Kubernetes manifests
 
+---
+
+# 🚀 Happy Learning and Building! 💻🔥
+---
+```
