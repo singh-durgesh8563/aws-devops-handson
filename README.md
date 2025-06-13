@@ -158,7 +158,7 @@ kubectl apply -f <manifest-files>
 ### ✅ Task 8: Deploy a Container Using a Kubernetes Secret
 
 Objective:
-Deploy a container using the image hashicorp/http-echo inside a Kubernetes namespace called fynbos.
+Deploy a container using the image hashicorp/http-echo inside a Kubernetes namespace called crecita-ns.
 
 What to do:
 	•Create a Kubernetes Secret that contains this message:
