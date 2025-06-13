@@ -170,14 +170,14 @@ What to do:
 	•The container must display the message in the browser (e.g., via curl or port-forward).
 
 ---
-### ✅ Task 8: Deploy a Container Using a Kubernetes Secret
+### ✅ Task 9: Deploy a Container Using a Kubernetes Secret
 
 Objective:
 Update the secret message and ensure the change appears in the browser without restarting the pod.
 
 New message to use:
 ```bash
-   Welcome to Crecita — DevOps + Cloud Training Lab
+Welcome to Crecita — DevOps + Cloud Training Lab
 ```
 What to do:
 	•Modify the Kubernetes Secret to contain the updated message.
