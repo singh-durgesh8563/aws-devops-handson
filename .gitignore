@@ -1,7 +1,0 @@
-# Add this to your .gitignore file
-.terraform/
-*.tfstate
-*.tfstate.backup
-*.log
-*.swp
-

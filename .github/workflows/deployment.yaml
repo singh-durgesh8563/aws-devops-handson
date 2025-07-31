@@ -1,24 +1,28 @@
-name: Terraform Apply
+name: Terraform EC2 GitHub Actions
 
 on:
   push:
+    paths:
+      - '02-terraform-ec2-github-actions/**'
+      - '.github/workflows/**'
     branches:
       - main
 
 jobs:
   terraform:
+    name: Terraform EC2 Deployment
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: 02-terraform-ec2-github-actions
+        working-directory: terraform
 
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.6
 
@@ -30,4 +34,7 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "ap-south-1"
