@@ -1,0 +1,32 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: 02-terraform-ec2-github-actions
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: 02-terraform-ec2-github-actions
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: 02-terraform-ec2-github-actions
+
